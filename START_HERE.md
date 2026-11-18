@@ -49,4 +49,4 @@ PowerShell trong repo:
 
 `run` giữ mã thoát thật: 0 Release, 10 Hold, 20 Rework, 30 chờ người duyệt. Mã 10 trong bài hiện tại là kết luận chất lượng, không phải script bị hỏng.
 
-Train raw/clean hai seed là phần tùy chọn riêng 15 điểm; hiện chưa chạy, chưa tải thêm model. Repo đã đổi đúng tên: https://github.com/ducnguyen-ai/K5-L23-DAY09-2A202603178-AutoQCPipeline. Tên thư mục local tạm giữ nguyên để không làm hỏng đường dẫn công cụ.
+Train raw/clean hai seed là phần tùy chọn riêng 15 điểm; hiện chưa chạy, chưa tải thêm model. Repo giữ tên học viên trước MSHV theo yêu cầu: https://github.com/ducnguyen-ai/K5-L23-Day09-NguyenCaoNgocDuc-2A202603178-AutoQC-Pipeline-Lab. Tên thư mục local tạm giữ nguyên để không làm hỏng đường dẫn công cụ.

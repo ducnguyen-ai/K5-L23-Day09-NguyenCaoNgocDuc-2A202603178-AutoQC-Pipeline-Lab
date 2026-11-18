@@ -1,6 +1,6 @@
 # Kiểm chứng phần lõi Day09 — 18/11/2026
 
-- Repo: https://github.com/ducnguyen-ai/K5-L23-DAY09-2A202603178-AutoQCPipeline
+- Repo: https://github.com/ducnguyen-ai/K5-L23-Day09-NguyenCaoNgocDuc-2A202603178-AutoQC-Pipeline-Lab
 - Môi trường kiểm cuối: Ubuntu hiện có, Python 3.12, dependency tại `requirements-core.lock.txt`.
 - Các file được bảo vệ, tests và dữ liệu của đề giữ nguyên; checker chính thức chạy nguyên bản trong Linux.
 - Baseline: 55 failed, 24 passed. Sau triển khai: Windows 79 passed; Linux **79 passed trong 144.70 giây**.
