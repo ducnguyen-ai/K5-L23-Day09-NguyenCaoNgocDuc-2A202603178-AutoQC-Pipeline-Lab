@@ -4,76 +4,85 @@ Lớp L2 · Email: 26ai.ducncn@vinuni.edu.vn
 
 ## 1. Kết luận trước
 
-Pipeline hiện kết luận **Hold**: nhận 205/224 ảnh, loại 19/224 ảnh ở intake. Sau sửa tự động và 80 lượt duyệt **mô phỏng theo script của đề**, không còn lỗi bắt buộc nhưng còn 38/205 ảnh cảnh báo chưa duyệt (18.54%), vượt ngưỡng 10%. `submission/export/clean_v1` chứa 205 ảnh trong manifest; đây là bản nháp phục vụ thử nghiệm, chưa đủ điều kiện phát hành. Nguồn: `reports/01_intake.csv`, `08_summary.json` và manifest.
+**Hold**: nhận 205/224 ảnh, loại 19 ở intake. Sau sửa tự động và 80 lượt duyệt **mô phỏng**, còn 0 error nhưng 38/205 ảnh cảnh báo chưa duyệt (18.54%), vượt ngưỡng 10%. Export clean_v1 gồm 205 ảnh là bản nháp để thử nghiệm, chưa phát hành. Nguồn: `reports/08_summary.json`, `export/clean_v1/manifest.json`. Train hai seed chưa cho thấy lợi ích mAP của clean (§5).
 
 ## 2. Lỗi và phân việc
 
-Nguồn: `reports/02_error_list_v1.csv` có 204 issue: 19 ở intake và 185 sau intake (36 error, 149 warn). Cột “Ảnh” là số stem riêng biệt cho từng mã; lỗi tên lớp dùng `data.yaml`, không phải một ảnh. Một ảnh có thể có nhiều issue nên không cộng cột ảnh thành tổng dataset.
+`reports/02_error_list_v1.csv`: 204 issue = 19 intake + 185 sau intake (36 error, 149 warn). Mỗi ảnh có thể có nhiều issue; “Ảnh/stem” của BAD_CLASS_NAME và CLASS_RARE là data.yaml hoặc cấp dataset, không phải ảnh.
 
-| Mã lỗi | Issue/dòng | Ảnh/stem | Ai sửa | Xử lý |
+| Mã lỗi | Issue/dòng | Ảnh/stem | Ai sửa | Vì sao/cách sửa |
 |---|---:|---:|---|---|
-| `BAD_CLASS_ID` | 6 | 6 | Máy | Xóa dòng có ID ngoài danh mục |
-| `BAD_CLASS_NAME` | 2 | 1 | Máy | Chuẩn hóa names trong YAML |
-| `BAD_FORMAT` | 3 | 3 | Máy | Xóa dòng không parse được |
-| `BAD_SIZE` | 3 | 3 | Máy | Loại ảnh dưới kích thước tối thiểu |
-| `BOX_HUGE` | 3 | 3 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
-| `BOX_OUT_OF_IMAGE` | 8 | 8 | Máy | Cắt box, kiểm lại diện tích |
-| `BOX_TINY` | 6 | 4 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
-| `BOX_ZERO` | 4 | 4 | Máy | Xóa dòng có kích thước không dương |
-| `CLASS_RARE` | 4 | 1 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
-| `CORRUPT_IMAGE` | 2 | 2 | Máy | Loại ảnh hỏng ở intake |
-| `DUP_BOX` | 7 | 7 | Máy | Xóa dòng box lặp cùng lớp |
-| `DUP_IMAGE_EXACT` | 8 | 8 | Máy | Loại bản trùng byte |
-| `DUP_IMAGE_NEAR` | 2 | 2 | Máy | Loại cặp gần trùng theo ngưỡng đã chọn |
-| `EMPTY_LABEL` | 12 | 12 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
-| `LEAK_TEST` | 4 | 4 | Máy | Loại ảnh rò rỉ sang kho test/val |
-| `MISSING_LABEL_FILE` | 6 | 6 | Người | Chuyển người gán, không tạo nhãn rỗng |
-| `POSSIBLE_FALSE_POS` | 25 | 24 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
-| `POSSIBLE_LOOSE_BOX` | 28 | 24 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
-| `POSSIBLE_MISSING` | 53 | 52 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
-| `POSSIBLE_WRONG_CLASS` | 18 | 18 | Người | Cảnh báo cần đối chiếu, không tự sửa ngữ nghĩa |
+| `BAD_CLASS_ID` | 6 | 6 | Máy | Bỏ ID lạ |
+| `BAD_CLASS_NAME` | 2 | 1 | Máy | Sửa names |
+| `BAD_FORMAT` | 3 | 3 | Máy | Bỏ dòng hỏng |
+| `BAD_SIZE` | 3 | 3 | Máy | Loại ảnh nhỏ |
+| `BOX_HUGE` | 3 | 3 | Người | Kiểm ý nghĩa |
+| `BOX_OUT_OF_IMAGE` | 8 | 8 | Máy | Cắt về biên |
+| `BOX_TINY` | 6 | 4 | Người | Kiểm ý nghĩa |
+| `BOX_ZERO` | 4 | 4 | Máy | Bỏ box rỗng |
+| `CLASS_RARE` | 4 | 1 | Người | Kiểm ý nghĩa |
+| `CORRUPT_IMAGE` | 2 | 2 | Máy | Loại ảnh hỏng |
+| `DUP_BOX` | 7 | 7 | Máy | Bỏ box lặp |
+| `DUP_IMAGE_EXACT` | 8 | 8 | Máy | Loại trùng byte |
+| `DUP_IMAGE_NEAR` | 2 | 2 | Máy | Loại gần trùng |
+| `EMPTY_LABEL` | 12 | 12 | Người | Kiểm ý nghĩa |
+| `LEAK_TEST` | 4 | 4 | Máy | Loại rò rỉ test |
+| `MISSING_LABEL_FILE` | 6 | 6 | Người | Gán nhãn thật |
+| `POSSIBLE_FALSE_POS` | 25 | 24 | Người | Kiểm ý nghĩa |
+| `POSSIBLE_LOOSE_BOX` | 28 | 24 | Người | Kiểm ý nghĩa |
+| `POSSIBLE_MISSING` | 53 | 52 | Người | Kiểm ý nghĩa |
+| `POSSIBLE_WRONG_CLASS` | 18 | 18 | Người | Kiểm ý nghĩa |
 
-`03_fixes.csv` ghi 35 hành động: 20 drop_line, 8 clip_box, 1 rename_classes, 6 needs_label. needs_label là chuyển việc, chưa phải nhãn đã được sửa. Hàng đợi có 125 ảnh; chỉ 80/125 được mô phỏng duyệt. `img_0020` đứng đầu với priority 11.524 vì cộng trọng số FIXED_DROP_LINE, POSSIBLE_MISSING, POSSIBLE_WRONG_CLASS và conf; `img_0031` tiếp theo có NEEDS_LABEL, priority 10. Không thay đổi trọng số/ngân sách để ép Release.
+`03_fixes.csv`: 20 drop_line, 8 clip_box, 1 rename_classes, 6 needs_label; needs_label chỉ chuyển việc, chưa sửa nhãn. Máy chỉ sửa lỗi có quy tắc; người quyết định cảnh báo ngữ nghĩa. Hàng đợi có 125 ảnh, mô phỏng duyệt 80. img_0020 đầu hàng (11.524) do cộng trọng số sửa dòng, thiếu vật, nhầm lớp và conf; img_0031 có NEEDS_LABEL (10). Không tăng budget hoặc đổi weights để đạt Release.
 
-## 3. Calibration (2 ngưỡng)
+## 3. Calibration hai ngưỡng
 
-Nguồn: `calibration/calibration_report.md`, `calibration.json`, bộ calib 39 ảnh. Mỗi cặp số là precision / recall.
+Nguồn: `calibration/calibration_report.md`, `calibration.json` (39 ảnh); P/R = precision/recall.
 
-| Tham số | Khởi đầu | Đã chọn | Trước → sau | Lý do |
-|---|---:|---:|---|---|
-| duplicates.phash_dist | 2 | 4 | NEAR: 1.00/0.50 → 1.00/0.67 (3/6 → 4/6); EXACT: 1.00/1.00 giữ nguyên | Chọn ngưỡng nhỏ nhất cải thiện recall, ưu tiên precision vì ảnh bị loại tự động. |
-| second_opinion.conf | 0.25 | 0.6 | WRONG_CLASS: 0.56/0.83 → 0.62/0.83; MISSING: 0.50/1.00 → 0.57/1.00 | Giảm báo động giả nhưng giữ recall nhầm lớp và thiếu nhãn trên calib; chấp nhận đánh đổi LOOSE 0.29/0.40 → 0.20/0.20. |
+| Tham số | Khởi đầu → chọn | P/R trước → sau | Đánh đổi |
+|---|---|---|---|
+| phash_dist | 2 → 4 | NEAR: 1.00/0.50 → 1.00/0.67 (3/6 → 4/6); EXACT giữ 1.00/1.00 | Ngưỡng nhỏ nhất cải thiện recall; ưu tiên precision vì cờ sai sẽ loại nhầm ảnh. |
+| second_opinion.conf | 0.25 → 0.6 | WRONG_CLASS: 0.56/0.83 → 0.62/0.83; MISSING: 0.50/1.00 → 0.57/1.00 | Bớt báo động giả, giữ recall hai nhóm này; chấp nhận recall LOOSE giảm 0.40 → 0.20. |
 
-FALSE_POS vẫn 0.36/1.00 vì nhánh này dùng fp_conf=0.1 cố định, không dùng conf đang calibrate. Không chọn 0.8 chỉ để bớt hàng đợi: recall MISSING giảm còn 0.75. Đây là quyết định kỹ thuật cần được đọc và xác thực cùng kết quả thực tế.
+FALSE_POS vẫn 0.36/1.00 vì dùng fp_conf=0.1 cố định. Không chọn 0.8 để làm nhỏ hàng đợi: recall MISSING giảm còn 0.75.
 
-Điểm dễ bị đánh lừa: phash=16 vẫn đạt precision NEAR 1.00 và recall 5/6 trên calib, nhưng trên raw số cờ duplicates/leak tăng từ 14 (ngưỡng 4) lên 26; ngưỡng 20 tăng tới 134/224. Đây là độ nhạy, **không chứng minh các cặp tăng thêm đều sai**: cần người mở cặp ảnh để xác nhận. Calib không có LEAK_TEST và chỉ 6 ca NEAR, nên không suy rộng precision của calib thành bảo đảm xóa đúng trên raw. Kết quả kiểm độ nhạy lưu ở `work/setup/duplicate_sensitivity.json`.
+**Điểm dễ bị đánh lừa:** phash=16 đạt NEAR P=1.00, R=5/6 trên calib nhưng số cờ duplicate/leak raw tăng 14 → 26; ngưỡng 20 tăng tới 134/224. Đây là độ nhạy, chưa chứng minh cặp tăng thêm đều sai; cần mở cặp ảnh. Calib chỉ có 6 ca NEAR và không có LEAK_TEST, nên không bảo đảm precision trên raw. Kiểm độ nhạy lưu ở `work/setup/duplicate_sensitivity.json`.
 
-## 4. Cửa chặn và điều pipeline không bắt được
+## 4. Gate, điểm mù và quan sát cá nhân
 
-Thử nghiệm: `python -m pipeline.run --budget 0 --work work/no-review --reports work/rep_nb --export-dir work/exp_nb`. Kết quả **Rework**, 6 error MISSING_LABEL_FILE còn lại, mã thoát **20**, không có `work/exp_nb/clean_v1/manifest.json`. Không tăng ngân sách hoặc bỏ ảnh thiếu nhãn để né cửa chặn.
+Thử `python -m pipeline.run --budget 0 --work work/no-review --reports work/rep_nb --export-dir work/exp_nb`: **Rework**, còn 6 MISSING_LABEL_FILE, exit **20**, không xuất manifest. Gate chặn thật, không tạo nhãn rỗng để né lỗi.
 
-Các giới hạn có bằng chứng: (1) checker bỏ sót 1/6 ca WRONG_CLASS và 4/5 ca LOOSE_BOX chèn trong calib ở conf=0.6; hai model thống nhất không đồng nghĩa nhãn đúng. (2) phash=4 bỏ sót 2/6 ca NEAR trên calib; biến đổi mạnh có thể lọt. (3) 71 cảnh báo vẫn có mặt ở v3, gồm cả ảnh người mô phỏng đã duyệt; không coi model checker là ground truth để tự sửa tiếp.
+Điểm mù đo được: checker bỏ sót 1/6 WRONG_CLASS và 4/5 LOOSE_BOX trên calib ở conf=0.6; phash=4 bỏ sót 2/6 NEAR. Hai model thống nhất không chứng minh nhãn đúng. V3 còn 71 cảnh báo, gồm cả ảnh đã duyệt mô phỏng.
 
-**Quan sát cá nhân:** đã kiểm 10 ảnh trong trang `work/viz/index.html` và ghi ba trường hợp dưới đây. Nguồn ghi chú gốc: [`observations/day09-observations.json`](observations/day09-observations.json).
+Đã tự kiểm 10 ảnh, ghi ba ca trong [`observations/day09-observations.json`](observations/day09-observations.json):
 
-| Ảnh | Quan sát khi xem nhãn raw | Hướng xử lý đề xuất |
+| Ảnh | Quan sát nhãn raw | Cách sửa đề xuất |
 |---|---|---|
-| `img_0001` | Thiếu người mặc quân phục ở giữa box 2 và 3. | Bổ sung box `person` ôm phần người nhìn thấy. |
-| `img_0005` | Người lái xe bus chưa có nhãn. | Bổ sung box `person` cho người lái theo phần nhìn thấy. |
-| `img_0007` | Còn ô tô chưa được gán nhãn. | Kiểm từng ô tô còn thiếu và bổ sung box `car`. |
+| img_0001 | Thiếu người mặc quân phục giữa box 2 và 3 | Thêm person |
+| img_0005 | Thiếu người lái bus | Thêm person |
+| img_0007 | Thiếu ô tô | Thêm car còn thiếu |
 
-Đối chiếu log tự động: `img_0001` có POSSIBLE_MISSING ở v1 và được đưa vào 80 lượt duyệt mô phỏng; v3 không còn issue của ảnh này. `img_0005` và `img_0007` không bị loại ở intake và không có cảnh báo trong v1: quan sát của người chỉ ra các ca cần kiểm thêm dù checker im lặng. Chưa có box sửa/đối chiếu chuẩn riêng cho hai ca này, nên không suy thành tỷ lệ bỏ sót của checker. Ba ghi chú là đánh giá nhãn raw, chưa phải bằng chứng đã sửa nhãn của bản export; không thay đổi số reviewed hoặc kết luận Hold.
+img_0001 được checker cờ POSSIBLE_MISSING, duyệt mô phỏng và hết issue ở v3. img_0005/0007 không bị loại intake, không có cờ v1: cần kiểm thêm dù checker im lặng, chưa coi là tỷ lệ FN được đo chuẩn. Ghi chú raw chưa phải chứng cứ sửa bản export; không cộng chúng vào số reviewed. Đã được giải thích bằng ví dụ và xác nhận hiểu bốn module.
 
-**Đọc hiểu code:** đã đọc phần giải thích kèm ví dụ và xác nhận hiểu bốn module label_format, autofix, second_opinion, gate.
+## 5. Train raw vs clean
 
-## 5. Train: raw vs clean (tùy chọn, chấm riêng)
+Script `train_compare.py` nguyên bản: YOLO26n, Ultralytics 8.4.214, 20 epoch, seed 0/1, batch 16, ảnh 640; cùng val 40 và test 100 ảnh, RTX 4060. Chi tiết: `docs/TRAINING.md`, `docs/training_runtime.json`. Loader nhận raw **213/224**, clean **205/205**; #ảnh trong bảng là số materialize do script ghi.
 
-**Chưa chạy.** Hiện hoàn thiện phần pipeline lõi trước; chưa tải thêm trọng số hoặc tạo kết quả train. Không có căn cứ kết luận clean giúp mAP tốt hơn raw. Muốn đánh giá cần cùng model, 20 epoch, val/test, batch và hai seed 0/1 cho cả raw/clean, rồi so mức chênh với độ lệch giữa seed bằng script chính thức.
+| biến thể | #ảnh train | số seed | map50 (TB ± độ lệch) | map50_95 (TB ± độ lệch) | precision (TB ± độ lệch) | recall (TB ± độ lệch) |
+|---|---|---|---|---|---|---|
+| raw | 224 | 2 | 0.723 ± 0.006 | 0.523 ± 0.012 | 0.822 ± 0.072 | 0.602 ± 0.036 |
+| clean | 205 | 2 | 0.706 ± 0.007 | 0.516 ± 0.002 | 0.703 ± 0.013 | 0.612 ± 0.030 |
+
+Chênh mAP50 (clean − raw) = **-0.018**.
+
+Số chính xác: mAP50 raw **0.7232 ± 0.0064**, clean **0.7055 ± 0.0066**, Δ=**−0.0177** (−1.77 điểm phần trăm), lớn hơn từng độ lệch giữa seed; clean thấp ở cả hai seed. mAP50-95 giảm 0.0076, nhỏ hơn SD raw 0.0116. **Thí nghiệm này không ủng hộ kết luận clean tốt hơn raw**; hai seed/test 100 ảnh chưa đủ khẳng định tổng quát.
+
+Hai giả thuyết cần kiểm tiếp: (1) raw có 4 ảnh rò rỉ vào test theo 01_intake.csv, có thể làm điểm raw lạc quan; cần test độc lập mới để kiểm. (2) clean thay đổi lượng/phân bố dữ liệu và thêm nhãn người ở 80 ảnh, trong khi loader raw đã tự bỏ 11 ca hỏng; hiệu ứng không chỉ là autofix. Cần ablation từng bước/auto-vs-human trên holdout mới. Không đổi ngưỡng, seed hoặc epoch dựa vào test vừa đo.
 
 ## 6. Quyết định và ghi chú AI
 
-Giữ **Hold**. Điều kiện đổi sang Release: hết error và tỷ lệ ảnh cảnh báo chưa duyệt dưới 10% theo quy tắc cố định; trên mẫu số 205 cần còn tối đa 20 ảnh cảnh báo, tức xử lý thêm ít nhất 18 ảnh trong nhóm 38. Đây là nhu cầu quy trình ở vòng tiếp theo, không phải quyền tăng budget=80 trong bài hoặc tự đánh dấu reviewed. Phần duyệt hiện tại là mô phỏng, không thay thế xác thực cá nhân ở mục 4.
+Giữ **Hold**. Muốn Release phải hết error và còn tối đa 20/205 ảnh cảnh báo chưa duyệt, tức xử lý thêm ít nhất 18 trong nhóm 38; đây là việc vòng sau, không tăng budget=80 hoặc tự đánh dấu reviewed trong bài. mAP không thay thế gate QC.
 
-- Prompt chính: triển khai 4 stub theo docstring/test; đầu vào Dataset YOLO `id cx cy w h` và cache `[id,conf,cx,cy,w,h]`; trả Issue hoặc log sửa; checks/gate chỉ đọc, autofix chỉ sửa bản sao, không sửa data/tests/file đã viết sẵn, không đọc đáp án raw và không cố định tên ảnh trong code.
-- Kiểm chứng đã thực hiện bằng công cụ: baseline 55 failed/24 passed → **79 passed**; chạy ba ca tổng hợp bổ sung (một dòng có hai lỗi + dòng trống, ID vô hạn, nhiều prediction); hai sweep; pipeline chính; thí nghiệm gate budget=0. Đã tự xem 10 ảnh và ghi ba ca ở mục 4; đã xác nhận hiểu bốn module sau phần giải thích bằng ví dụ.
-- Một lần AI sai: đoạn trợ giúp in summary được chạy trước khi bật PYTHONUTF8, gây UnicodeEncodeError ở console Windows. Đã bật PYTHONUTF8=1 và thêm vào launcher PowerShell; không chỉnh số liệu sinh tự động để che lỗi. Các file báo cáo chính sinh bởi script của đề, không sửa tay. Kiểm core trên Windows bộc lộ lỗi đường dẫn bảo vệ và CRLF trong script đề; chuyển chạy nguyên bản qua Ubuntu có sẵn thay vì sửa trình kiểm.
+- **Prompt:** 4 stub theo docstring/test; đầu vào YOLO `id cx cy w h` và cache dự đoán; đầu ra Issue/log sửa. Checks/gate chỉ đọc, autofix sửa bản sao; không sửa data/tests/file bảo vệ, không đọc đáp án raw hoặc cố định tên ảnh trong code.
+- **Kiểm:** baseline 55 failed/24 passed → 79 passed; ba ca bổ sung; hai sweep; pipeline; gate budget=0; tự xem 10 ảnh; xác nhận hiểu module; bốn lượt train cùng cấu hình. File số liệu do script sinh, không sửa tay.
+- **AI sai và sửa:** tái dùng môi trường GPU thiếu Polars khiến lượt train đầu dừng khi lưu checkpoint; bổ sung thư viện, giữ log lỗi và chạy lại từ đầu, không dùng kết quả dở. Lỗi đường dẫn/CRLF của checker Windows được xử lý bằng chạy nguyên bản trên Ubuntu; không sửa trình chấm.

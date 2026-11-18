@@ -9,7 +9,7 @@ Chạy tại GPU RTX 4060 Laptop 8 GB, dùng script train_compare.py nguyên b�
 - Cùng validation 40 ảnh để chọn best checkpoint; test 100 ảnh chỉ được đánh giá cuối mỗi lượt theo script chính thức. Không dùng điểm test để chọn ngưỡng QC, seed hoặc cấu hình train.
 - Ultralytics 8.4.214 đúng requirements-train.txt; dùng lại torch CUDA hiện có. Trọng số yolo26n.pt là tệp cần cho thí nghiệm, không commit; không tải thêm các cỡ khác.
 - Materializer chỉ sao chép dữ liệu vào work/train. Không sửa data/raw, gold_val, test hoặc nhãn tham chiếu để cải thiện điểm.
-- Ultralytics có thể tự bỏ qua ảnh/nhãn hỏng ở raw; n_images trong JSON là số ảnh materialize, chưa chắc bằng số ảnh thực sự dùng trong từng batch. Xem log/cache của lần train để hiểu tác động này; không coi raw là 224 ảnh đều hợp lệ.
+- Thực tế loader bỏ qua 11 ảnh/nhãn raw hỏng: 224 ảnh materialize, 213 ảnh được nhận; clean nhận đủ 205/205. train_images trong JSON chính thức vẫn là số ảnh materialize (224 hoặc 205), không sửa tay trường này. Cache của loader và log lưu bằng chứng số ảnh thực dùng.
 
 ## Lệnh trên máy hiện tại
 
