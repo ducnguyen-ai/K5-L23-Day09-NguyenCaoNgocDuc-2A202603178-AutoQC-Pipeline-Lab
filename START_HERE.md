@@ -50,3 +50,7 @@ PowerShell trong repo:
 `run` giữ mã thoát thật: 0 Release, 10 Hold, 20 Rework, 30 chờ người duyệt. Mã 10 trong bài hiện tại là kết luận chất lượng, không phải script bị hỏng.
 
 Train raw/clean hai seed là phần tùy chọn riêng 15 điểm; đã hoàn thành trên RTX 4060 với YOLO26n và runtime 8.4.214. Xem `docs/TRAINING.md`. Repo giữ tên học viên trước MSHV theo yêu cầu: https://github.com/ducnguyen-ai/K5-L23-Day09-NguyenCaoNgocDuc-2A202603178-AutoQC-Pipeline-Lab. Tên thư mục local tạm giữ nguyên để không làm hỏng đường dẫn công cụ.
+
+## Sau bài và phần bonus
+
+Xem [kiến thức cần nắm, ví dụ Hold và trạng thái bonus](docs/LEARNING_NOTES.md). Bài chính và train đã có đầu ra; hai mục thưởng +3 check mới và +2 CVAT hiện chưa làm.
