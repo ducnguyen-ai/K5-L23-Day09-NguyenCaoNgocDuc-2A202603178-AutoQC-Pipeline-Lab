@@ -4,7 +4,7 @@ Nguyễn Cao Ngọc Đức · 2A202603178 · L2 · 26ai.ducncn@vinuni.edu.vn
 
 ## Trạng thái
 
-Đã triển khai 4 module, 79 test chính thức đạt; chạy 2 sweep, pipeline chính và thử nghiệm ngân sách duyệt bằng 0. Pipeline kết luận **Hold**. Duyệt 80 ảnh trong kết quả là **mô phỏng theo đề**, không phải xác nhận bạn đã xem 80 ảnh.
+Đã triển khai 4 module, 79 test chính thức đạt, check-core 0 lỗi (xem docs/VERIFICATION.md); chạy 2 sweep, pipeline chính và thử nghiệm ngân sách duyệt bằng 0. Pipeline kết luận **Hold**. Duyệt 80 ảnh trong kết quả là **mô phỏng theo đề**, không phải xác nhận bạn đã xem 80 ảnh.
 
 Repo có sẵn dữ liệu và dự đoán checker. Venv Windows nhẹ dùng lại thư viện hệ thống, chỉ bổ sung ImageHash/PyWavelets. Trình kiểm bài của đề có lỗi đường dẫn Windows và khác biệt checksum CRLF, nên launcher chính dùng Ubuntu hiện có + venv `/root/.venvs/day09-qc` để chạy nguyên bản; không sửa script kiểm. Không cần tải model, bật CVAT hoặc hoàn thành Day08 trước.
 
