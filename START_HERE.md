@@ -10,9 +10,9 @@ Repo có sẵn dữ liệu và dự đoán checker. Venv Windows nhẹ dùng l�
 
 ## Bạn cần làm ngay
 
-1. Mở [10 ảnh có nhãn](work/viz/index.html). Bấm từng ảnh để phóng to. Ghi ít nhất 3 lỗi bạn tự thấy (tên ảnh, vật nào, sai gì, cần sửa ra sao). Ghi chú trong trang được lưu ở trình duyệt; bấm tải JSON để giữ lại.
+1. **Đã hoàn thành:** kiểm 10 ảnh và gửi ba ghi chú ở img_0001, img_0005, img_0007; bản gốc lưu tại `submission/observations/day09-observations.json`, đã đưa vào REPORT mục 4.
 2. Đọc phần giải thích dưới đây và mở 4 file code. RULES.md yêu cầu bạn hiểu và giải thích được code dùng AI hỗ trợ. Đánh dấu phần chưa hiểu để được giải thích thêm.
-3. Sau khi bạn xác nhận các quan sát và nội dung báo cáo, cập nhật phần xác thực cá nhân trong REPORT. Chưa ghi việc này là hoàn thành.
+3. Quan sát cá nhân đã cập nhật. Sau khi xác nhận đọc hiểu code, chốt phần xác thực còn lại; kết luận pipeline hiện vẫn là Hold và train tùy chọn chưa chạy.
 
 Ảnh chỉ xử lý tại máy bằng script trực quan hóa của đề; không tải ảnh COCO lên dịch vụ AI bên ngoài. Màu box: car xanh dương, person đỏ, truck cam, bus tím. Nhãn không parse được có thể không hiển thị.
 

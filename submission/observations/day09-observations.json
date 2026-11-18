@@ -1,0 +1,14 @@
+[
+  {
+    "image": "img_0001",
+    "note": "\n- bounding box thiếu, người mặc quân phục ở giữa box 2 và 3 chưa được gán, phải gán người đó"
+  },
+  {
+    "image": "img_0005",
+    "note": "- người lái xe bus chưa được gán nhãn, gán nhãn người lái xe bus"
+  },
+  {
+    "image": "img_0007",
+    "note": "- car gán thiếu, nên bổ sung gán nhãn các car còn thiếu "
+  }
+]
