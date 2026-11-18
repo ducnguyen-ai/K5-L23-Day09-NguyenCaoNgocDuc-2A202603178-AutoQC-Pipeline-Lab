@@ -1,0 +1,5 @@
+# Cấu hình phép kiểm thưởng, tách khỏi cấu hình dự án được ghim.
+bonus:
+  aspect_ratio:
+    max_ratio: 10.0
+    min_side_px: 2.0

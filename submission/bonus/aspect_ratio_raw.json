@@ -1,0 +1,13 @@
+{
+  "check": "aspect_ratio",
+  "source": "data/raw",
+  "n_images": 224,
+  "n_issues": 0,
+  "n_flagged_images": 0,
+  "rules": {
+    "max_ratio": 10.0,
+    "min_side_px": 2.0
+  },
+  "read_only": true,
+  "affects_core_gate": false
+}
