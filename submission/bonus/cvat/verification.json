@@ -1,0 +1,61 @@
+{
+  "cvat_url": "http://localhost:8081",
+  "project_id": 3,
+  "task_id": 25,
+  "job_id": 24,
+  "n_images": 21,
+  "n_shapes_imported": 140,
+  "import_format": "YOLO 1.1",
+  "filter": "width < 20",
+  "observed_images": 5,
+  "total_matches": 10,
+  "all_counts_match": true,
+  "annotations_edited": false,
+  "observations": [
+    {
+      "frame": 1,
+      "image": "img_0020.jpg",
+      "cvat_ui_items": 3,
+      "expected_width_lt20": 3,
+      "pipeline_box_tiny": 0,
+      "matches_expected": true,
+      "screenshot": "screenshots/img_0020_filtered_items.jpg"
+    },
+    {
+      "frame": 5,
+      "image": "img_0053.jpg",
+      "cvat_ui_items": 1,
+      "expected_width_lt20": 1,
+      "pipeline_box_tiny": 0,
+      "matches_expected": true,
+      "screenshot": "screenshots/img_0053_filtered_items.jpg"
+    },
+    {
+      "frame": 14,
+      "image": "img_0135.jpg",
+      "cvat_ui_items": 2,
+      "expected_width_lt20": 2,
+      "pipeline_box_tiny": 0,
+      "matches_expected": true,
+      "screenshot": "screenshots/img_0135_filtered_items.jpg"
+    },
+    {
+      "frame": 2,
+      "image": "img_0030.jpg",
+      "cvat_ui_items": 3,
+      "expected_width_lt20": 3,
+      "pipeline_box_tiny": 0,
+      "matches_expected": true,
+      "screenshot": "screenshots/img_0030_filtered_items.jpg"
+    },
+    {
+      "frame": 11,
+      "image": "img_0124.jpg",
+      "cvat_ui_items": 1,
+      "expected_width_lt20": 1,
+      "pipeline_box_tiny": 0,
+      "matches_expected": true,
+      "screenshot": "screenshots/img_0124_filtered_items.jpg"
+    }
+  ]
+}

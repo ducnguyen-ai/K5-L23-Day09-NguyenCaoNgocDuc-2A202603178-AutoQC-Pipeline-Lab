@@ -1,0 +1,6 @@
+frame,image,cvat_ui_items,expected_width_lt20,pipeline_box_tiny,matches_expected,screenshot
+1,img_0020.jpg,3,3,0,True,screenshots/img_0020_filtered_items.jpg
+5,img_0053.jpg,1,1,0,True,screenshots/img_0053_filtered_items.jpg
+14,img_0135.jpg,2,2,0,True,screenshots/img_0135_filtered_items.jpg
+2,img_0030.jpg,3,3,0,True,screenshots/img_0030_filtered_items.jpg
+11,img_0124.jpg,1,1,0,True,screenshots/img_0124_filtered_items.jpg

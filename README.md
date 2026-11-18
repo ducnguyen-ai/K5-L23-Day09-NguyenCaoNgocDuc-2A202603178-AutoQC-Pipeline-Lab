@@ -31,6 +31,8 @@ Bạn sẽ **tự viết 4 module** (`label_format`, `second_opinion`, `autofix`
 
 Thiết lập máy và phần cần tự xác thực: [START_HERE.md](START_HERE.md).
 
+**Kết quả hiện tại:** 90 test đạt (79 của đề + 11 bonus), kiểm đầy đủ 0 lỗi/0 cảnh báo. [Hai phần bonus và ảnh chụp CVAT](submission/bonus/README.md). Kết luận dữ liệu: Hold.
+
 ## Bộ dữ liệu
 
 ![Mẫu ảnh (nhãn đúng)](docs/assets/sample_grid.jpg)

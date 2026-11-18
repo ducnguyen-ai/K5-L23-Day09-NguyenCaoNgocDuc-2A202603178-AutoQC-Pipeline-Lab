@@ -37,8 +37,8 @@ Theo RUBRIC.md và docs/CVAT_FILTER.md, thưởng tối đa +5, tổng điểm k
 
 | Phần | Điểm tối đa | Điều kiện/bằng chứng | Trạng thái hiện tại |
 |---|---:|---|---|
-| Check mới | +3 | Một phép kiểm mới (ví dụ tỷ lệ khung hình bất thường) có test, quy tắc giải thích được. | Chưa triển khai. Ba ca bổ sung trong verify_additional_cases.py là kiểm code bắt buộc, không phải check mới. |
-| CVAT lọc box nhỏ | +2 | Lọc width<20 trên ≥1 ảnh, ghi tên ảnh/số box, đối chiếu BOX_TINY, giải thích can_review và có ảnh chụp; làm kỹ hơn trên ≥5 ảnh. | Chưa có minh chứng CVAT cho Day09; không nhận là đã hoàn thành. |
+| Check mới | +3 | Một phép kiểm mới (ví dụ tỷ lệ khung hình bất thường) có test, quy tắc giải thích được. | Đã thêm aspect_ratio.py, 11 test tại bonus_tests và kết quả chạy thật. Ba ca bổ sung cũ không được tính thay cho check mới. |
+| CVAT lọc box nhỏ | +2 | Lọc width<20 trên ≥1 ảnh, ghi tên ảnh/số box, đối chiếu BOX_TINY, giải thích can_review và có ảnh chụp; làm kỹ hơn trên ≥5 ảnh. | Đã lọc 5 ảnh trên task 25/job 24, 10 box khớp, bảng đối chiếu và 6 ảnh chụp trong submission/bonus/cvat. |
 | Train raw/clean | 15 trong thang 100 | Hai seed mỗi biến thể, so sánh cùng điều kiện, kết luận trung thực. | Đã hoàn thành. Đây là phần tùy chọn của điểm chính, không phải +15 bonus. |
 
 CVAT width<20 và pipeline BOX_TINY khác nhau: pipeline dùng min(width,height)<12 px. Vì vậy hai tập box không bắt buộc trùng nhau; phải so theo đúng tiêu chí, không xóa mọi box nhỏ theo cảm tính. can_review dùng để chuyển ca khó/chưa chắc cho người kiểm; ý nghĩa tương tự hàng đợi cảnh báo trong pipeline, không phải công cụ xóa lỗi bắt buộc.

@@ -1,0 +1,39 @@
+{
+  "task_name": "Day09-178-bonus-small-boxes",
+  "project_name": "Day09-178-bonus",
+  "source": "work/run/ds",
+  "selection": "20 first review queue images plus first 5 width<20 candidate images; unique, sorted by filename",
+  "images": [
+    "img_0004.jpg",
+    "img_0020.jpg",
+    "img_0030.jpg",
+    "img_0031.jpg",
+    "img_0050.jpg",
+    "img_0053.jpg",
+    "img_0070.jpg",
+    "img_0078.jpg",
+    "img_0092.jpg",
+    "img_0099.jpg",
+    "img_0104.jpg",
+    "img_0124.jpg",
+    "img_0126.jpg",
+    "img_0127.jpg",
+    "img_0135.jpg",
+    "img_0144.jpg",
+    "img_0160.jpg",
+    "img_0170.jpg",
+    "img_0185.jpg",
+    "img_0204.jpg",
+    "img_0219.jpg"
+  ],
+  "screenshots_target_images": [
+    "img_0020.jpg",
+    "img_0053.jpg",
+    "img_0135.jpg",
+    "img_0030.jpg",
+    "img_0124.jpg"
+  ],
+  "n_images": 21,
+  "yolo_format": "YOLO 1.1",
+  "filter": "width < 20"
+}

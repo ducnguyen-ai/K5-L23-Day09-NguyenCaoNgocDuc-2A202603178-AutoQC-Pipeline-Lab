@@ -86,3 +86,20 @@ Giữ **Hold**. Muốn Release phải hết error và còn tối đa 20/205 ản
 - **Prompt:** 4 stub theo docstring/test; đầu vào YOLO `id cx cy w h` và cache dự đoán; đầu ra Issue/log sửa. Checks/gate chỉ đọc, autofix sửa bản sao; không sửa data/tests/file bảo vệ, không đọc đáp án raw hoặc cố định tên ảnh trong code.
 - **Kiểm:** baseline 55 failed/24 passed → 79 passed; ba ca bổ sung; hai sweep; pipeline; gate budget=0; tự xem 10 ảnh; xác nhận hiểu module; bốn lượt train cùng cấu hình. File số liệu do script sinh, không sửa tay.
 - **AI sai và sửa:** tái dùng môi trường GPU thiếu Polars khiến lượt train đầu dừng khi lưu checkpoint; bổ sung thư viện, giữ log lỗi và chạy lại từ đầu, không dùng kết quả dở. Lỗi đường dẫn/CRLF của checker Windows được xử lý bằng chạy nguyên bản trên Ubuntu; không sửa trình chấm.
+
+
+**6(b). Hai phần bonus:** bổ sung check `BOX_EXTREME_ASPECT_RATIO` tính theo pixel, ratio>10 và cạnh ngắn≥2 px; có 11 test và chỉ WARN. Chạy raw 224 ảnh và sau pipeline 205 ảnh đều có 0 box vượt ngưỡng, không tạo số liệu giả. Check chạy riêng qua dispatcher chuẩn; không đổi cấu hình/gate của bài chính.
+
+CVAT task 25/job 24 import YOLO 1.1 gồm 21 ảnh, 140 box. Đặt bộ lọc Width<20, kiểm giao diện và chụp 5 ảnh:
+
+| Ảnh | Box khớp trên CVAT | Tính từ nhãn | BOX_TINY của pipeline |
+|---|---:|---:|---:|
+| img_0020 | 3 | 3 | 0 |
+| img_0053 | 1 | 1 | 0 |
+| img_0135 | 2 | 2 | 0 |
+| img_0030 | 3 | 3 | 0 |
+| img_0124 | 1 | 1 | 0 |
+
+Tổng 10 box; cạnh ngắn đều≥12 px nên không thuộc BOX_TINY. Width<20 và min(width,height)<12 là hai tiêu chí khác nhau; không xóa box chỉ vì lọc được. `can_review` chuyển ca khó/chưa chắc cho người xem, tương tự WARN/review_queue của pipeline; không tự bỏ lỗi bắt buộc. Không chỉnh nhãn task hoặc cộng lượt kiểm bộ lọc này vào 80 lượt duyệt mô phỏng.
+
+[Code, test, bảng đo và 6 ảnh chụp minh chứng bonus](bonus/README.md). Kết luận Hold và kết quả train giữ nguyên; mức thưởng thực tế do giảng viên chấm.
