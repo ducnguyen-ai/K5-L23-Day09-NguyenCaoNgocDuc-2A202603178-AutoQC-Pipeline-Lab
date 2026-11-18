@@ -2,7 +2,7 @@
   <img src="docs/assets/hero.png" alt="Day 09 Lab: pipeline kiểm nhãn tự động" width="100%">
 </p>
 
-# Day 09 Lab — Pipeline kiểm nhãn tự động
+# Day 09 Lab — Nguyễn Cao Ngọc Đức: 2A202603178 - Nguyễn Cao Ngọc Đức
 
 <p align="center">
   <img alt="cá nhân" src="https://img.shields.io/badge/lab-cá%20nhân-0b1f3a">
@@ -26,6 +26,10 @@ Bạn sẽ **tự viết 4 module** (`label_format`, `second_opinion`, `autofix`
 ![Pipeline và cửa chặn](docs/assets/pipeline.png)
 
 ![Máy bắt gì, người bắt gì](docs/assets/machine_human.png)
+
+**Lớp:** L2 · **Email:** 26ai.ducncn@vinuni.edu.vn
+
+Thiết lập máy và phần cần tự xác thực: [START_HERE.md](START_HERE.md).
 
 ## Bộ dữ liệu
 
