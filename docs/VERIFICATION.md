@@ -10,4 +10,4 @@
 - `./run-day09.ps1 check-core`: **0 lỗi, 1 cảnh báo**. Cảnh báo là bỏ qua train tùy chọn; chưa có kết quả train để chấm phần 15 điểm này.
 - Log chi tiết trên máy: `work/setup/baseline-tests.txt`, `pipeline-linux.log`, `check-core-linux.log`, `additional_cases.txt`, `no-review.log` (work không commit).
 
-Đã xác nhận kiểm 10 ảnh và tiếp nhận ba ghi chú gốc tại `submission/observations/day09-observations.json`; đã cập nhật REPORT mục 4. Chưa xác nhận đọc hiểu bốn module. 80 lượt duyệt của pipeline vẫn là mô phỏng, không đổi thành 80 ảnh học viên đã duyệt.
+Đã xác nhận kiểm 10 ảnh và tiếp nhận ba ghi chú gốc tại `submission/observations/day09-observations.json`; đã cập nhật REPORT mục 4. Đã xác nhận hiểu bốn module sau khi được giải thích bằng ví dụ. 80 lượt duyệt của pipeline vẫn là mô phỏng, không đổi thành 80 ảnh học viên đã duyệt.

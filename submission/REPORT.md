@@ -64,7 +64,7 @@ Các giới hạn có bằng chứng: (1) checker bỏ sót 1/6 ca WRONG_CLASS v
 
 Đối chiếu log tự động: `img_0001` có POSSIBLE_MISSING ở v1 và được đưa vào 80 lượt duyệt mô phỏng; v3 không còn issue của ảnh này. `img_0005` và `img_0007` không bị loại ở intake và không có cảnh báo trong v1: quan sát của người chỉ ra các ca cần kiểm thêm dù checker im lặng. Chưa có box sửa/đối chiếu chuẩn riêng cho hai ca này, nên không suy thành tỷ lệ bỏ sót của checker. Ba ghi chú là đánh giá nhãn raw, chưa phải bằng chứng đã sửa nhãn của bản export; không thay đổi số reviewed hoặc kết luận Hold.
 
-**Đọc hiểu code:** chưa xác nhận đã đọc hiểu toàn bộ bốn module; cần hoàn thành riêng yêu cầu này trước khi chốt báo cáo.
+**Đọc hiểu code:** đã đọc phần giải thích kèm ví dụ và xác nhận hiểu bốn module label_format, autofix, second_opinion, gate.
 
 ## 5. Train: raw vs clean (tùy chọn, chấm riêng)
 
@@ -75,5 +75,5 @@ Các giới hạn có bằng chứng: (1) checker bỏ sót 1/6 ca WRONG_CLASS v
 Giữ **Hold**. Điều kiện đổi sang Release: hết error và tỷ lệ ảnh cảnh báo chưa duyệt dưới 10% theo quy tắc cố định; trên mẫu số 205 cần còn tối đa 20 ảnh cảnh báo, tức xử lý thêm ít nhất 18 ảnh trong nhóm 38. Đây là nhu cầu quy trình ở vòng tiếp theo, không phải quyền tăng budget=80 trong bài hoặc tự đánh dấu reviewed. Phần duyệt hiện tại là mô phỏng, không thay thế xác thực cá nhân ở mục 4.
 
 - Prompt chính: triển khai 4 stub theo docstring/test; đầu vào Dataset YOLO `id cx cy w h` và cache `[id,conf,cx,cy,w,h]`; trả Issue hoặc log sửa; checks/gate chỉ đọc, autofix chỉ sửa bản sao, không sửa data/tests/file đã viết sẵn, không đọc đáp án raw và không cố định tên ảnh trong code.
-- Kiểm chứng đã thực hiện bằng công cụ: baseline 55 failed/24 passed → **79 passed**; chạy ba ca tổng hợp bổ sung (một dòng có hai lỗi + dòng trống, ID vô hạn, nhiều prediction); hai sweep; pipeline chính; thí nghiệm gate budget=0. Đã tự xem 10 ảnh và ghi ba ca ở mục 4; phần đọc hiểu bốn module vẫn cần xác nhận.
+- Kiểm chứng đã thực hiện bằng công cụ: baseline 55 failed/24 passed → **79 passed**; chạy ba ca tổng hợp bổ sung (một dòng có hai lỗi + dòng trống, ID vô hạn, nhiều prediction); hai sweep; pipeline chính; thí nghiệm gate budget=0. Đã tự xem 10 ảnh và ghi ba ca ở mục 4; đã xác nhận hiểu bốn module sau phần giải thích bằng ví dụ.
 - Một lần AI sai: đoạn trợ giúp in summary được chạy trước khi bật PYTHONUTF8, gây UnicodeEncodeError ở console Windows. Đã bật PYTHONUTF8=1 và thêm vào launcher PowerShell; không chỉnh số liệu sinh tự động để che lỗi. Các file báo cáo chính sinh bởi script của đề, không sửa tay. Kiểm core trên Windows bộc lộ lỗi đường dẫn bảo vệ và CRLF trong script đề; chuyển chạy nguyên bản qua Ubuntu có sẵn thay vì sửa trình kiểm.
